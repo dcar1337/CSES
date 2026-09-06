@@ -66,9 +66,9 @@ public class NumberSpiral {
         }
 
         if (layer == row) {
-            System.out.println(layer*layer - (col - 1));
+            System.out.println(layer * layer - (col - 1));
         } else {
-            System.out.println((layer - 1)*(layer - 1) + 1 + (row - 1));
+            System.out.println((layer - 1) * (layer - 1) + 1 + (row - 1));
         }
 
     }
