@@ -4,24 +4,47 @@ import java.util.TreeSet;
 
 public class CreatingStrings {
 
-    public static void solve(Set<String> solutions, StringBuilder str, String availableLetters, int index) {
-        if (str.length() == availableLetters.length()) {
-            solutions.add(str.toString());
+    public static String getString(String[] arr) {
+        StringBuilder str = new StringBuilder();
+
+        for (String s : arr) {
+            str.append(s);
+        }
+
+        return str.toString();
+    }
+
+    public static void solve(Set<String> solutions, String[] currentString, int nextIndex) {
+        if (nextIndex == currentString.length) {
+            solutions.add(getString(currentString));
             return;
         }
 
+        for (int i = nextIndex; i < currentString.length; i++) {
+            String currentItem = currentString[i];
+            currentString[i] = currentString[nextIndex];
+            currentString[nextIndex] = currentItem;
+
+            solve(solutions, currentString, nextIndex + 1);
+
+            currentItem = currentString[nextIndex];
+            currentString[nextIndex] = currentString[i];
+            currentString[i] = currentItem;
+        }
 
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String s = sc.nextLine();
-        int n = s.length();
+        String[] s = sc.nextLine().split("");
 
         Set<String> solutions = new TreeSet<>();
-        StringBuilder str = new StringBuilder();
+        solve(solutions, s,0);
 
-        solve(solutions, str, s, n);
+        System.out.println(solutions.size());
+        for (String solution : solutions) {
+            System.out.println(solution);
+        }
     }
 }
